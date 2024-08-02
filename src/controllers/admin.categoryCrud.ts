@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { Category } from "../models/admin.Category";
 
@@ -98,6 +99,7 @@ export const getAllCategory = async (req: Request, res: Response) => {
 export const updateCategory = async (req: Request, res: Response) => {
   try {
     const cateId = req.params.id;
+
     const categoryPrev = await Category.findById(cateId);
     if (categoryPrev) {
       if (categoryPrev.isDeleted) {

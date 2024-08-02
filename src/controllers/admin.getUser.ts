@@ -1,20 +1,20 @@
 import { Request, Response } from "express";
-import { Product } from "../models/admin.Product";
+import { Auth } from "../models/admin.model";
 
-export const getProduct = async (req: Request, res: Response) => {
+export const getUser = async (req: Request, res: Response) => {
   try {
     const userId = req.user.id;
-    const product = await Product.findById(userId);
-    if (!product) {
+    const user = await Auth.findById(userId);
+    if (!user) {
       return res.status(200).json({
         status: "success",
-        message: "No product is exist with this userId",
+        message: "No user is exist with this userId",
       });
     }
     res.status(200).json({
       status: "success",
       result: {
-        product,
+        user,
       },
     });
   } catch (err) {

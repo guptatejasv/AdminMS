@@ -1,11 +1,33 @@
 import { Request, Response } from "express";
-import { Admin } from "../models/admin.Admin";
-import bcrypt from "bcryptjs";
-import { sign } from "jsonwebtoken";
-
+import { Product } from "../models/admin.Product";
 export const blockUnblockProduct = async (req: Request, res: Response) => {
   try {
-    // here is the code
+    const adminId = req.user.id;
+    const productId = req.params.id;
+    const { action } = req.body;
+    const blockUnblockProduct = await Product.findById(productId);
+
+    if (action == "Block") {
+      if (blockUnblockProduct) {
+        blockUnblockProduct.isBlocked = true;
+        blockUnblockProduct.isBlockedBy = adminId;
+        blockUnblockProduct.save();
+        return res.status(200).json({
+          status: "success",
+          message: `Product is ${action}ed successfully..`,
+        });
+      }
+    } else if (action == "Unblock") {
+      if (blockUnblockProduct) {
+        blockUnblockProduct.isBlocked = false;
+        blockUnblockProduct.isBlockedBy = undefined;
+        blockUnblockProduct.save();
+        return res.status(200).json({
+          status: "success",
+          message: `Product is ${action}ed successfully..`,
+        });
+      }
+    }
   } catch (err) {
     res.status(400).json({
       status: "fail",

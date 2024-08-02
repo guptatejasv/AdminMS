@@ -1,15 +1,14 @@
 import { Request, Response } from "express";
-import { Product } from "../models/admin.Product";
-
-export const getAllProducts = async (req: Request, res: Response) => {
+import { Auth } from "../models/admin.model";
+export const getAllUsers = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find();
-    if (products) {
+    const users = await Auth.find();
+    if (users) {
       res.status(200).json({
         status: "success",
-        results: products.length,
+        results: users.length,
         data: {
-          products,
+          users,
         },
       });
     }

@@ -2,12 +2,6 @@ import { Router } from "express";
 import { signIn } from "../controllers/admin.signin";
 import { signUp } from "../controllers/admin.signup";
 import { verify_token } from "../middlewares/jwtverify";
-import { getAllProducts } from "../controllers/admin.getAllProducts";
-import { getProduct } from "../controllers/admin.getProduct";
-import { blockUnblockProduct } from "../controllers/admin.blockUnblockProduct";
-import { blockUnblockBundleProduct } from "../controllers/admin.blockUnblockBundleProduct";
-import { getAllBundleProducts } from "../controllers/admin.getAllBundleProducts";
-import { getBundleProduct } from "../controllers/admin.getBundleProduct";
 import {
   addCategory,
   getCategory,
@@ -15,7 +9,12 @@ import {
   updateCategory,
   deleteCategory,
 } from "../controllers/admin.categoryCrud";
-
+import { getAllUsers } from "../controllers/admin.getAllUsers";
+import { getUser } from "../controllers/admin.getUser";
+import { blockUnblockUser } from "../controllers/admin.blockUnblockUser";
+import { getAllProducts } from "../controllers/admin.getAllProducts";
+import { getProduct } from "../controllers/admin.getProduct";
+import { blockUnblockProduct } from "../controllers/admin.blockUnblockProduct";
 const router = Router();
 
 router.post("/signup", signUp);
@@ -29,21 +28,21 @@ router.patch("/updateCategory/:id", verify_token, updateCategory);
 router.delete("/deleteCategory/:id", verify_token, deleteCategory);
 
 // user related routes--
-// router.get('/getAllUsers',verify_token, getAllUsers);
-// router.get('/getUser/:id', verify_token, getUser);
-// router.patch('/blockUnblockUser/:id', verify_token, blockUnblockUser);
+router.get("/getAllUsers", verify_token, getAllUsers);
+router.get("/getUser/:id", verify_token, getUser);
+router.patch("/blockUnblockUser/:id", verify_token, blockUnblockUser);
 
-// Product and Bundle Product Related routes--
+// // Product and Bundle Product Related routes--
 router.get("/getAllProducts", verify_token, getAllProducts);
 router.get("/getProduct/:id", verify_token, getProduct);
 router.patch("/blockUnblockProduct/:id", verify_token, blockUnblockProduct);
 
-router.get("/getAllBundleProducts", verify_token, getAllBundleProducts);
-router.get("/getBundleProduct/:id", verify_token, getBundleProduct);
-router.patch(
-  "/blockUnblockBundleProduct/:id",
-  verify_token,
-  blockUnblockBundleProduct
-);
+// router.get("/getAllBundleProducts", verify_token, getAllBundleProducts);
+// router.get("/getBundleProduct/:id", verify_token, getBundleProduct);
+// router.patch(
+//   "/blockUnblockBundleProduct/:id",
+//   verify_token,
+//   blockUnblockBundleProduct
+// );
 
 export default router;
