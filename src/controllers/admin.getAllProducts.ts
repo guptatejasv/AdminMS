@@ -3,7 +3,9 @@ import { Product } from "../models/admin.Product";
 
 export const getAllProducts = async (req: Request, res: Response) => {
   try {
-    const products = await Product.find();
+    const products = await Product.find({
+      isDeleted: false,
+    });
     if (products) {
       res.status(200).json({
         status: "success",

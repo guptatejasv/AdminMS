@@ -11,6 +11,12 @@ export const getProduct = async (req: Request, res: Response) => {
         message: "No product is exist with this userId",
       });
     }
+    if (product.isDeleted == true) {
+      return res.status(200).json({
+        status: "success",
+        message: "No product is exist with this userId",
+      });
+    }
     res.status(200).json({
       status: "success",
       result: {

@@ -6,7 +6,12 @@ export const blockUnblockProduct = async (req: Request, res: Response) => {
     const productId = req.params.id;
     const { action } = req.body;
     const blockUnblockProduct = await Product.findById(productId);
-
+    if (blockUnblockProduct?.isBlocked == true) {
+      return res.status(400).json({
+        status: "success",
+        message: `This product is already blocked..`,
+      });
+    }
     if (action == "Block") {
       if (blockUnblockProduct) {
         blockUnblockProduct.isBlocked = true;

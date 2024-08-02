@@ -11,6 +11,7 @@ export const getUser = async (req: Request, res: Response) => {
         message: "No user is exist with this userId",
       });
     }
+
     res.status(200).json({
       status: "success",
       result: {

@@ -15,6 +15,12 @@ import { blockUnblockUser } from "../controllers/admin.blockUnblockUser";
 import { getAllProducts } from "../controllers/admin.getAllProducts";
 import { getProduct } from "../controllers/admin.getProduct";
 import { blockUnblockProduct } from "../controllers/admin.blockUnblockProduct";
+import { getBundleProducts } from "../controllers/seller.getBundleProducts";
+import { getBundleProduct } from "../controllers/seller.getBundleProduct";
+import { addBundleProduct } from "../controllers/admin.addBundleProduct";
+import { blockUnblockBundleProduct } from "../controllers/admin.blockUnblockBundleProduct";
+import { deleteBundleProduct } from "../controllers/seller.deleteBundleProduct";
+
 const router = Router();
 
 router.post("/signup", signUp);
@@ -37,8 +43,15 @@ router.get("/getAllProducts", verify_token, getAllProducts);
 router.get("/getProduct/:id", verify_token, getProduct);
 router.patch("/blockUnblockProduct/:id", verify_token, blockUnblockProduct);
 
-// router.get("/getAllBundleProducts", verify_token, getAllBundleProducts);
-// router.get("/getBundleProduct/:id", verify_token, getBundleProduct);
+router.post("/addBundleProduct", verify_token, addBundleProduct);
+router.get("/getAllBundleProducts", verify_token, getBundleProducts);
+router.get("/getBundleProduct/:id", verify_token, getBundleProduct);
+router.delete("/deleteBundleProduct/:id", verify_token, deleteBundleProduct);
+router.patch(
+  "/blockUnblockBundleProduct/:id",
+  verify_token,
+  blockUnblockBundleProduct
+);
 // router.patch(
 //   "/blockUnblockBundleProduct/:id",
 //   verify_token,

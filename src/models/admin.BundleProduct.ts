@@ -5,13 +5,14 @@ interface Product {
   productId: ObjectId;
 }
 export interface IAuth extends Document {
-  sellerId: ObjectId;
+  sellerId?: ObjectId;
+  adminId?: ObjectId;
   bundleName: string;
   description: string;
   products: Product[];
   bundlePrice: number;
   isBlocked: boolean;
-  isBlockedBy: ObjectId;
+  isBlockedBy?: ObjectId;
   isDeleted: boolean;
 }
 
@@ -24,7 +25,10 @@ const AuthSchema: Schema = new Schema(
     sellerId: {
       type: Schema.Types.ObjectId,
       ref: "Auth",
-      required: true,
+    },
+    adminId: {
+      type: Schema.Types.ObjectId,
+      ref: "Admin",
     },
     bundleName: {
       type: String,

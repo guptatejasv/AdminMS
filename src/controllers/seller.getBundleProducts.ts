@@ -4,10 +4,7 @@ import { BundleProduct } from "../models/admin.BundleProduct";
 
 export const getBundleProducts = async (req: Request, res: Response) => {
   try {
-    const user = req.user;
-
     const bundleProduct = await BundleProduct.find({
-      sellerId: user,
       isDeleted: false,
     });
 

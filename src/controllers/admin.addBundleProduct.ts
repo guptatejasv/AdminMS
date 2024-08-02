@@ -36,7 +36,7 @@ export const addBundleProduct = async (req: Request, res: Response) => {
     // Calculate the total price of the bundle
 
     const bundleProduct = await BundleProduct.create({
-      sellerId: user.id,
+      adminId: user.id,
       bundleName,
       description,
       bundlePrice,
