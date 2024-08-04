@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { BundleProduct } from "../models/admin.BundleProduct";
+import { BundleProduct } from "../../models/admin.BundleProduct";
 export const blockUnblockBundleProduct = async (
   req: Request,
   res: Response
@@ -9,14 +9,15 @@ export const blockUnblockBundleProduct = async (
     const productId = req.params.id;
     const { action } = req.body;
     const blockUnblockBundleProduct = await BundleProduct.findById(productId);
-    if (blockUnblockBundleProduct?.isBlocked == true) {
-      return res.status(400).json({
-        status: "success",
-        message: "This Bundle Product is already Blocked..",
-      });
-    }
+
     if (action == "Block") {
       if (blockUnblockBundleProduct) {
+        if (blockUnblockBundleProduct?.isBlocked == true) {
+          return res.status(400).json({
+            status: "success",
+            message: "This Bundle Product is already Blocked..",
+          });
+        }
         blockUnblockBundleProduct.isBlocked = true;
         blockUnblockBundleProduct.isBlockedBy = adminId;
         blockUnblockBundleProduct.save();
@@ -27,6 +28,12 @@ export const blockUnblockBundleProduct = async (
       }
     } else if (action == "Unblock") {
       if (blockUnblockBundleProduct) {
+        if (blockUnblockBundleProduct?.isBlocked == false) {
+          return res.status(400).json({
+            status: "success",
+            message: "This Bundle Product is already Unblocked..",
+          });
+        }
         blockUnblockBundleProduct.isBlocked = false;
         blockUnblockBundleProduct.isBlockedBy = undefined;
         blockUnblockBundleProduct.save();

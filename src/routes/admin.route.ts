@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { signIn } from "../controllers/admin.signin";
-import { signUp } from "../controllers/admin.signup";
+import { signIn } from "../controllers/Signin_SignUp/admin.signin";
+import { signUp } from "../controllers/Signin_SignUp/admin.signup";
 import { verify_token } from "../middlewares/jwtverify";
 import {
   addCategory,
@@ -8,19 +8,20 @@ import {
   getAllCategory,
   updateCategory,
   deleteCategory,
-} from "../controllers/admin.categoryCrud";
-import { getAllUsers } from "../controllers/admin.getAllUsers";
-import { getUser } from "../controllers/admin.getUser";
-import { blockUnblockUser } from "../controllers/admin.blockUnblockUser";
-import { getAllProducts } from "../controllers/admin.getAllProducts";
-import { getProduct } from "../controllers/admin.getProduct";
-import { blockUnblockProduct } from "../controllers/admin.blockUnblockProduct";
-import { getBundleProducts } from "../controllers/seller.getBundleProducts";
-import { getBundleProduct } from "../controllers/seller.getBundleProduct";
-import { addBundleProduct } from "../controllers/admin.addBundleProduct";
-import { blockUnblockBundleProduct } from "../controllers/admin.blockUnblockBundleProduct";
-import { deleteBundleProduct } from "../controllers/seller.deleteBundleProduct";
-
+} from "../controllers/Category/admin.categoryCrud";
+import { getAllUsers } from "../controllers/Users/admin.getAllUsers";
+import { getUser } from "../controllers/Users/admin.getUser";
+import { blockUnblockUser } from "../controllers/Users/admin.blockUnblockUser";
+import { getAllProducts } from "../controllers/Product/admin.getAllProducts";
+import { getProduct } from "../controllers/Product/admin.getProduct";
+import { blockUnblockProduct } from "../controllers/Product/admin.blockUnblockProduct";
+import { getBundleProducts } from "../controllers/Bundle Product/seller.getBundleProducts";
+import { getBundleProduct } from "../controllers/Bundle Product/seller.getBundleProduct";
+import { addBundleProduct } from "../controllers/Bundle Product/admin.addBundleProduct";
+import { blockUnblockBundleProduct } from "../controllers/Bundle Product/admin.blockUnblockBundleProduct";
+import { deleteBundleProduct } from "../controllers/Bundle Product/seller.deleteBundleProduct";
+import { addDiscount } from "../controllers/Discount/admin.addDiscount";
+import { getDiscount } from "../controllers/Discount/admin.getDiscount";
 const router = Router();
 
 router.post("/signup", signUp);
@@ -52,10 +53,12 @@ router.patch(
   verify_token,
   blockUnblockBundleProduct
 );
-// router.patch(
-//   "/blockUnblockBundleProduct/:id",
-//   verify_token,
-//   blockUnblockBundleProduct
-// );
+
+// Discount related routes
+router.post("/addDiscount/:id", verify_token, addDiscount);
+router.get("/getDiscount/:id", verify_token, getDiscount);
+// router.get('/addDiscounts', verify_token, getDiscounts);
+// router.get('/addDiscount', verify_token, addDiscount);
+// router.get('/addDiscount', verify_token, addDiscount);
 
 export default router;

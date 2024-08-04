@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 // import { Product } from "../models/seller.Product";
-import { BundleProduct } from "../models/admin.BundleProduct";
+import { BundleProduct } from "../../models/admin.BundleProduct";
 
 export const getBundleProducts = async (req: Request, res: Response) => {
   try {

@@ -5,12 +5,14 @@ export interface IAuth extends Document {
   name: string;
   description: string;
   price: number;
+  DiscountPrice?: number;
+  DiscountAddedBy?: string[];
+  DiscountCreatorId?: ObjectId[];
   category: string;
   stock?: number;
   isBlocked?: boolean;
   isBlockedBy?: ObjectId;
   isDeleted: boolean;
-  discount?: number;
 }
 
 const AuthSchema: Schema = new Schema(
@@ -31,6 +33,16 @@ const AuthSchema: Schema = new Schema(
     price: {
       type: Number,
       required: true,
+    },
+    DiscountPrice: {
+      type: Number,
+    },
+    DiscountAddedBy: {
+      type: Array,
+    },
+    DiscountCreatorId: {
+      type: Array(Schema.Types.ObjectId),
+      ref: "Admin | Auth",
     },
     category: {
       type: String,

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 
-import { BundleProduct } from "../models/admin.BundleProduct";
+import { BundleProduct } from "../../models/admin.BundleProduct";
 
 export const deleteBundleProduct = async (req: Request, res: Response) => {
   try {

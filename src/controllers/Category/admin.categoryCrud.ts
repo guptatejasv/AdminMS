@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
-import { Category } from "../models/admin.Category";
+import { Category } from "../../models/admin.Category";
 
 export const addCategory = async (req: Request, res: Response) => {
   try {

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Admin } from "../models/admin.Admin";
+import { Admin } from "../../models/admin.Admin";
 import bcrypt from "bcryptjs";
 import { sign } from "jsonwebtoken";
 export const signIn = async (req: Request, res: Response) => {
@@ -59,7 +59,7 @@ export const signIn = async (req: Request, res: Response) => {
       const token = sign({ id: admin._id }, secret, {
         expiresIn: "90d",
       });
-      
+
       if (admin && isMatch) {
         res.status(200).json({
           status: "success",

@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Product } from "../models/admin.Product";
+import { Product } from "../../models/admin.Product";
 export const blockUnblockProduct = async (req: Request, res: Response) => {
   try {
     const adminId = req.user.id;

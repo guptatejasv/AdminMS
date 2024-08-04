@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Auth } from "../models/admin.model";
+import { Auth } from "../../models/admin.model";
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
     const users = await Auth.find();

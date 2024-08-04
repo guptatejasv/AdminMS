@@ -1,9 +1,10 @@
 import { Request, Response } from "express";
-import { Auth } from "../models/admin.model";
+import { Auth } from "../../models/admin.model";
 
 export const getUser = async (req: Request, res: Response) => {
   try {
-    const userId = req.user.id;
+    const userId = req.params.id;
+
     const user = await Auth.findById(userId);
     if (!user) {
       return res.status(200).json({

@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
-import { Admin } from "../models/admin.Admin";
+import { Admin } from "../../models/admin.Admin";
 export const signUp = async (req: Request, res: Response) => {
   try {
     const {

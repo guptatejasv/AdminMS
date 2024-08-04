@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express";
 import { ObjectId } from "mongoose";
-import { BundleProduct } from "../models/admin.BundleProduct";
-import { Product } from "../models/admin.Product";
+import { BundleProduct } from "../../models/admin.BundleProduct";
+import { Product } from "../../models/admin.Product";
 interface Product {
   productId: ObjectId;
 }
