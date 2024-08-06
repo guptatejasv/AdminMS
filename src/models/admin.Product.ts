@@ -1,7 +1,8 @@
 import { Schema, Document, model, ObjectId } from "mongoose";
 
 export interface IAuth extends Document {
-  sellerId: ObjectId;
+  sellerId?: ObjectId;
+  adminId?: ObjectId;
   name: string;
   description: string;
   price: number;
@@ -20,7 +21,10 @@ const AuthSchema: Schema = new Schema(
     sellerId: {
       type: Schema.Types.ObjectId,
       ref: "Auth",
-      required: true,
+    },
+    adminId: {
+      type: Schema.Types.ObjectId,
+      ref: "Admin",
     },
     name: {
       type: String,

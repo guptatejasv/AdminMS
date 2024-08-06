@@ -76,15 +76,33 @@ export const getCategory = async (req: Request, res: Response) => {
 };
 export const getAllCategory = async (req: Request, res: Response) => {
   try {
+    // Extract page and limit from query parameters
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+
+    // Calculate the number of documents to skip
+    const skip = (page - 1) * limit;
+
+    // Fetch categories with pagination and limit, excluding deleted categories
     const allCategory = await Category.find({
       isDeleted: false,
-    });
+    })
+      .skip(skip)
+      .limit(limit);
+
+    // Get the total count of categories (excluding deleted ones)
+    const totalCategories = await Category.countDocuments({ isDeleted: false });
 
     res.status(200).json({
       status: "success",
       results: allCategory.length,
       data: {
         allCategory,
+      },
+      pagination: {
+        currentPage: page,
+        totalPages: Math.ceil(totalCategories / limit),
+        totalCategories,
       },
     });
   } catch (err) {

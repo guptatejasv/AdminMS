@@ -22,6 +22,8 @@ import { blockUnblockBundleProduct } from "../controllers/Bundle Product/admin.b
 import { deleteBundleProduct } from "../controllers/Bundle Product/seller.deleteBundleProduct";
 import { addDiscount } from "../controllers/Discount/admin.addDiscount";
 import { getDiscount } from "../controllers/Discount/admin.getDiscount";
+import { addProduct } from "../controllers/Product/admin.addProduct";
+// import { getlogin } from "../controllers/Users/admin.getUserlogin";
 const router = Router();
 
 router.post("/signup", signUp);
@@ -42,6 +44,7 @@ router.patch("/blockUnblockUser/:id", verify_token, blockUnblockUser);
 // // Product and Bundle Product Related routes--
 router.get("/getAllProducts", verify_token, getAllProducts);
 router.get("/getProduct/:id", verify_token, getProduct);
+router.post("/addProduct", verify_token, addProduct);
 router.patch("/blockUnblockProduct/:id", verify_token, blockUnblockProduct);
 
 router.post("/addBundleProduct", verify_token, addBundleProduct);
@@ -57,8 +60,8 @@ router.patch(
 // Discount related routes
 router.post("/addDiscount/:id", verify_token, addDiscount);
 router.get("/getDiscount/:id", verify_token, getDiscount);
-// router.get('/addDiscounts', verify_token, getDiscounts);
-// router.get('/addDiscount', verify_token, addDiscount);
-// router.get('/addDiscount', verify_token, addDiscount);
+// router.get("/login-report/:period", getlogin);
+
+// user login details daily, monthly, weekly, yearly
 
 export default router;
