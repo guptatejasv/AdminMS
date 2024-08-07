@@ -5,6 +5,7 @@ export interface IAuth extends Document {
   adminId?: ObjectId;
   productId: ObjectId;
   discountCoupon?: string;
+  previousPrice?: number;
   discount?: number;
   startDate?: Date;
   endDate?: Date;
@@ -31,6 +32,9 @@ const AuthSchema: Schema = new Schema(
     discountCoupon: {
       type: String,
       unique: true,
+    },
+    previousPrice: {
+      type: Number,
     },
     discount: {
       type: Number,

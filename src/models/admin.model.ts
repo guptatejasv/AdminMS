@@ -25,7 +25,7 @@ export interface IAuth extends Document {
   passwordResetExpires?: Date;
   emailUpdateToken?: string;
   emailUpdateTokenExpires?: Date;
-  role?: "admin" | "superAdmin" | "user";
+  role?: "seller" | "user";
   isVerified?: boolean;
   isEmailVerified?: boolean;
   otp?: string;

@@ -39,18 +39,25 @@ export const addDiscount = async (req: Request, res: Response) => {
           adminId: id,
           productId: pro_id,
         });
+
         const products = await Product.findById(pro_id);
         if (!products?.DiscountPrice) {
           if (products) {
+            discountDetail.previousPrice = products.price;
+            await discountDetail.save();
             const discountPrice =
               products.price - (products.price * discount) / 100;
             products.DiscountPrice = discountPrice;
+
             await products.save();
           }
         } else {
+          discountDetail.previousPrice = products.DiscountPrice;
+          await discountDetail.save();
           const discountPrice =
             products.DiscountPrice - (products.DiscountPrice * discount) / 100;
           products.DiscountPrice = discountPrice;
+
           await products.save();
         }
         await Product.findByIdAndUpdate(pro_id, {

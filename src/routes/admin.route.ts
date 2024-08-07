@@ -25,6 +25,7 @@ import { getDiscount } from "../controllers/Discount/admin.getDiscount";
 import { addProduct } from "../controllers/Product/admin.addProduct";
 import { getProductsByCategory } from "../controllers/Product/admin.getProductsByCategory";
 import { getLoginStatistics } from "../controllers/Users/admin.getLoginStatistic";
+import { deleteDiscount } from "../controllers/Discount/admin.deleteDiscount";
 
 // import { getlogin } from "../controllers/Users/admin.getUserlogin";
 const router = Router();
@@ -64,6 +65,7 @@ router.patch(
 // Discount related routes
 router.post("/addDiscount/:id", verify_token, addDiscount);
 router.get("/getDiscount/:id", verify_token, getDiscount);
+router.delete("/deleteDiscount/:id", verify_token, deleteDiscount);
 router.get("/login-report", getLoginStatistics);
 
 // user login details daily, monthly, weekly, yearly
