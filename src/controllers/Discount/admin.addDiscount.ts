@@ -12,45 +12,51 @@ export const addDiscount = async (req: Request, res: Response) => {
     if (admin) {
       if (admin.role == "admin") {
         const pro_id = req.params.id;
-        const { discountType, discount, startDate, endDate } = req.body;
-        if (!discountType || !discount || !startDate || !endDate) {
+        const { discountCoupon, discount, startDate, endDate } = req.body;
+        if (!discountCoupon || !discount || !startDate || !endDate) {
           return res
             .status(204)
             .json({ message: "All fields are required to fill" });
         }
+        const discountCouponCheck = await Discount.findOne({
+          discountCoupon,
+        });
+        if (discountCouponCheck) {
+          return res.status(400).json({
+            status: "success",
+            message: "Please Enter a different Discount Coupon..",
+          });
+        }
         const discountDetail = await Discount.create({
           adminId: id,
           productId: pro_id,
-          discountType,
+          discountCoupon,
           discount,
           startDate,
           endDate,
         });
-        const product = await Product.findById(pro_id);
-        if (product) {
-          if (
-            product.DiscountAddedBy &&
-            product.DiscountPrice &&
-            product.DiscountCreatorId
-          ) {
-            if (product.DiscountAddedBy[0] == "Seller") {
-              const discountedPrice =
-                product.DiscountPrice -
-                (product.DiscountPrice * discount) / 100;
-              product.DiscountPrice = discountedPrice;
-              (product.DiscountAddedBy[1] = "Admin"),
-                (product.DiscountCreatorId[1] = id);
-              await product.save();
-            }
+        const discountId = await Discount.find({
+          adminId: id,
+          productId: pro_id,
+        });
+        const products = await Product.findById(pro_id);
+        if (!products?.DiscountPrice) {
+          if (products) {
+            const discountPrice =
+              products.price - (products.price * discount) / 100;
+            products.DiscountPrice = discountPrice;
+            await products.save();
           }
-          // const discountedPrice =
-          //   product.price - (product.price * discount) / 100;
-          // product.DiscountPrice = discountedPrice;
-          // (product.DiscountAddedBy = ["Seller"]),
-          //   (product.DiscountCreatorId = id);
-          // product.save();
+        } else {
+          const discountPrice =
+            products.DiscountPrice - (products.DiscountPrice * discount) / 100;
+          products.DiscountPrice = discountPrice;
+          await products.save();
         }
-
+        await Product.findByIdAndUpdate(pro_id, {
+          adminDiscountId: discountId,
+        });
+        console.log(discountId);
         return res.status(201).json({
           status: "success",
           data: {
