@@ -24,10 +24,11 @@ import { addDiscount } from "../controllers/Discount/admin.addDiscount";
 import { getDiscount } from "../controllers/Discount/admin.getDiscount";
 import { addProduct } from "../controllers/Product/admin.addProduct";
 import { getProductsByCategory } from "../controllers/Product/admin.getProductsByCategory";
-import { getLoginStatistics } from "../controllers/Users/admin.getLoginStatistic";
+// import { getLoginStatistics } from "../controllers/Users/admin.getLoginStatistic";
 import { deleteDiscount } from "../controllers/Discount/admin.deleteDiscount";
 import { addDiscountOnBundle } from "../controllers/Discount/admin.addDiscountOnBundle";
 import { deleteDiscountOnBundle } from "../controllers/Discount/seller.deleteDiscountBundle";
+import { getOverAllLoggedin } from "../controllers/Users/admin.getOverAllLoggedin";
 
 // import { getlogin } from "../controllers/Users/admin.getUserlogin";
 const router = Router();
@@ -75,6 +76,6 @@ router.delete(
   deleteDiscountOnBundle
 );
 // user login details daily, monthly, weekly, yearly
-router.get("/login-report", getLoginStatistics);
-
+// router.get("/login-report", getLoginStatistics);
+router.get("/getOverAllLoggedin", verify_token, getOverAllLoggedin);
 export default router;
