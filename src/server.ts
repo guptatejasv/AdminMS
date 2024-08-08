@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import connectDB from "./config/admin.db";
 import router from "./routes/admin.route";
-
+import "../../Admin-MS/src/helper/schedular";
 dotenv.config();
 const port = process.env.PORT;
 connectDB();

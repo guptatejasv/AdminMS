@@ -9,7 +9,7 @@ export const getProductsByCategory = async (req: Request, res: Response) => {
 
     // Calculate the number of documents to skip
     const skip = (page - 1) * limit;
-    const { category } = req.body;
+    const category = req.query.search;
     const products = await Product.find({
       category,
     })
